@@ -11,9 +11,9 @@ course_archive_header_size = 192 #192 byte header for crs archives
 archive_filename_table = {
 1: "01_MainCourseModel", 2: "02_MainCourseVisualizer", 3: "03_LODCourseVisualizer", 4: "04_CarReflectionVisualizer", 5: "05_CarReflectionModel", 6: "06_CourseReflectionVisualizer", 7: "07_ExtraCourseVisualizer",
 9: "08_RoadSurfaceModel", 10: "09_RoadSurfaceVisualizer", 13: "10_RoadSurfaceModel2", 14: "11_RoadSurfaceVisualizer2", 21: "12_SkyboxModel", 22: "13_CourseBackgroundModel", 23: "14_CarReflectionModel2", 
-24: "15_LODSkyboxModel", 25: "16_UnknownCourseFile", 26: "17_SmokeTexture", 28: "18_CourseRunwayData", 29: "19_CourseLightFlareData", 30: "20_BillboardData", 31: "21_CourseParameters", 32: "22_EnvironmentParameters",
-33: "23_CourseMapData", 34: "24_CourseReplayCameras", 35: "25_CourseSoundData", 36: "26_UnknownCourseFile2", 37: "27_UnknownCourseFile3", 38: "28_UnknownCourseFile4", 39: "29_UnknownCourseFile5",
-40: "30_UnknownCourseFile6", 41: "31_CameraFile1", 42: "32_CameraFile2"
+24: "15_LODSkyboxModel", 25: "16_UnknownCourseFile", 26: "17_SmokeTexture", 27: "18_ExtraCourseModel", 28: "19_CourseRunwayData", 29: "20_CourseLightFlareData", 30: "21_BillboardData", 31: "22_CourseParameters", 32: "23_EnvironmentParameters",
+33: "24_CourseMapData", 34: "25_CourseReplayCameras", 35: "26_CourseSoundData", 36: "27_UnknownCourseFile2", 37: "28_UnknownCourseFile3", 38: "29_UnknownCourseFile4", 39: "30_UnknownCourseFile5",
+40: "31_UnknownCourseFile6", 41: "32_CameraFile1", 42: "33_CameraFile2"
 }
 
 #program functions
