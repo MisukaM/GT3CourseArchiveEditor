@@ -13,7 +13,7 @@ archive_filename_table = {
 9: "08_RoadSurfaceModel", 10: "09_RoadSurfaceVisualizer", 13: "10_RoadSurfaceModel2", 14: "11_RoadSurfaceVisualizer2", 21: "12_SkyboxModel", 22: "13_CourseBackgroundModel", 23: "14_CarReflectionModel2", 
 24: "15_LODSkyboxModel", 25: "16_UnknownCourseFile", 26: "17_SmokeTexture", 27: "18_ExtraCourseModel", 28: "19_CourseRunwayData", 29: "20_CourseLightFlareData", 30: "21_BillboardData", 31: "22_CourseParameters", 32: "23_EnvironmentParameters",
 33: "24_CourseMapData", 34: "25_CourseReplayCameras", 35: "26_CourseSoundData", 36: "27_UnknownCourseFile2", 37: "28_UnknownCourseFile3", 38: "29_UnknownCourseFile4", 39: "30_UnknownCourseFile5",
-40: "31_UnknownCourseFile6", 41: "32_CameraFile1", 42: "33_CameraFile2"
+40: "31_UnknownCourseFile6", 41: "32_CameraFile1", 42: "33_CameraFile2", 43: "34_UnknownCourseModel"
 }
 
 #program functions
