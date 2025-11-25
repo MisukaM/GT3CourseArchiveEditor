@@ -3,18 +3,24 @@ import os
 import struct
 import time
 
-print("GT3CourseArchiveEditor - Made by Misuka")
+print("GT3BetaCourseArchiveEditor - Made by Misuka")
 
-course_archive_header_size = 192 #192 byte header for crs archives
+course_archive_header_size = 128 #128 byte header for crs archives
 
 #db of filenames to use for outputted files
 archive_filename_table = {
-1: "01_MainCourseModel.mdl", 2: "02_MainCourseVisionList.lv", 3: "03_LODCourseVisionList.lv", 4: "04_CarReflectionVisionList.lv", 5: "05_CarReflectionModel.mdl", 6: "06_CourseReflectionVisionList.lv", 7: "07_ExtraCourseVisionList.lv",
-9: "08_RoadSurfaceModel.mdl", 10: "09_RoadSurfaceVisionList.lv", 13: "10_RoadSurfaceModel2.mdl", 14: "11_RoadSurfaceVisionList2.lv", 21: "12_SkyboxModel.mdl", 22: "13_CourseBackgroundModel.mdl", 23: "14_CarReflectionModel2.mdl", 
-24: "15_LODSkyboxModel.mdl", 25: "16_UnknownNightCourseFlag.bin", 26: "17_SmokeTexture.img", 27: "18_ExtraCourseModel.mdl", 28: "19_CourseRunwayData.rwy", 29: "20_CourseLightFlareData.gtfx", 30: "21_BillboardData.blbd", 31: "22_DrivingLines.ad", 32: "23_EnvironmentParameters.envptr",
-33: "24_CourseMiniMapData.map", 34: "25_CourseReplayCameras.cam", 35: "26_CourseSoundData.crss", 36: "27_UnknownCourseModel.mdl", 37: "28_UnknownCourseFile3", 38: "29_UnknownCourseFile4", 39: "30_UnknownCourseFile5",
-40: "31_UnknownCourseFile6", 41: "32_CameraFile1.cam", 42: "33_CameraFile2.cam", 43: "34_UnknownCourseModel2.mdl"
+1: "01_CourseRunwayData", 2: "02_UnknownReplayData", 3: "03_CourseParameters", 5: "04_EnvironmentParameters", 6: "05_SkyboxModel", 7: "06_UnknownModel", 8: "07_MainCourseModel",
+9: "08_CarReflectionModel2", 10: "09_CarReflectionModel", 11: "10_CourseReplayCameras", 12: "11_MainCourseVisualizer", 13: "12_BillboardData", 14: "13_CourseMapData",
+15: "14_CarReflectionVisualizer", 16: "15_RoadSurfaceModel", 17: "16_RoadSurfaceModel2", 18: "17_LODCourseVisualizer", 19: "18_LODCourseVisualizer2", 20: "19_CourseLightFlareData"
 }
+
+archive_filename_table_gt3_final = {
+1: "19_CourseRunwayData.rwy", 2: "02_UnknownReplayData", 3: "22_DrivingLines.ad", 5: "23_EnvironmentParameters.envptr", 6: "12_SkyboxModel.mdl", 7: "06_UnknownModel", 8: "01_MainCourseModel.mdl",
+9: "14_CarReflectionModel2.mdl", 10: "05_CarReflectionModel.mdl", 11: "25_CourseReplayCameras.cam", 12: "02_MainCourseVisionList.lv", 13: "21_BillboardData.blbd", 14: "24_CourseMiniMapData.map",
+15: "04_CarReflectionVisionList.lv", 16: "08_RoadSurfaceModel.mdl", 17: "10_RoadSurfaceModel2.mdl", 18: "03_LODCourseVisionList.lv", 19: "18_LODCourseVisualizer2", 20: "20_CourseLightFlareData.gtfx"
+}
+
+selected_archive = {}
 
 #program functions
 
@@ -35,13 +41,6 @@ def count_files(course):
     except:
         print("File counting: Could not find course file.")
     return last_file
-
-def count_files_in_dir(dir):
-    file_count_in_dir = 0
-    for path in os.listdir(dir):
-        if os.path.isfile(os.path.join(dir, path)):
-            file_count_in_dir += 1
-    return file_count_in_dir
 
 def find_next_pointer(position, initial_pointer, course):
     with open(course, 'rb') as f:
@@ -97,9 +96,9 @@ def crs_unpack(course):
                         end_of_file_reading = f.read()
                         file_length = len(end_of_file_reading)
                     print(f"{'offset':<10}{'filetype':<30}{'index':<8}{'datasize':<10}")
-                    print(f"{read_data[0]:<10}{archive_filename_table[dictionary_index]:<30}{dictionary_index:<8}{file_length}{' bytes'}\n")
+                    print(f"{read_data[0]:<10}{selected_archive[dictionary_index]:<30}{dictionary_index:<8}{file_length}{' bytes'}\n")
                     #dump file:
-                    dump_found_archive_files(course, read_data[0], read_data[0] + file_length, course+"_out", archive_filename_table[dictionary_index])
+                    dump_found_archive_files(course, read_data[0], read_data[0] + file_length, course+"_out", selected_archive[dictionary_index])
                     print("_"*80)
                     position_in_file += 4
 
@@ -123,7 +122,7 @@ def crs_repack(course):
             offset = course_archive_header_size
 
         with open(course+"_new", "rb+") as f:
-            for key, value in archive_filename_table.items():
+            for key, value in selected_archive.items():
                 if value not in course_files:
                     print(f"Skipping missing file: {value}")
                     continue
@@ -151,12 +150,16 @@ def crs_repack(course):
 
 #user action
 def main():
-    current_dir = os.getcwd()
-    file_count_in_dir = count_files_in_dir(current_dir)
     while True:
         print()
-        user_command = input('Choose action: "B"=Build, "U"=Unpack, "BA"=BuildAll, "UA"=UnpackAll, "E"=Exit: ')
-        print("File Count in directory;", file_count_in_dir)
+        use_gt3_final_filenames = input('Use GT3 final filenames? Y/N: ')
+        if use_gt3_final_filenames.lower() == "y":
+            selected_archive = archive_filename_table_gt3_final
+        elif use_gt3_final_filenames.lower() == "n":
+            selected_archive = archive_filename_table
+        else:
+            print("Invalid command.")
+        user_command = input('Choose action: "B"=Build, "U"=Unpack, "E"=Exit: ')
         if user_command.lower() == "e":
             print("Exiting...")
             time.sleep(1.5)
@@ -171,20 +174,6 @@ def main():
             print("Files found:", file_count)
             print()
             crs_unpack(selected_course)
-        elif user_command.lower() == "ba":
-            for file in os.listdir(current_dir):
-                if os.path.isfile(file):
-                    selected_course = os.fsdecode(file)
-                    print()
-                    crs_repack(selected_course)
-        elif user_command.lower() == "ua":
-            for file in os.listdir(current_dir):
-                if os.path.isfile(file):
-                    selected_course = os.fsdecode(file)
-                    file_count = count_files(selected_course)
-                    print("Files found:", file_count)
-                    print()
-                    crs_unpack(selected_course)
         else:
             print("Invalid command.")
 
