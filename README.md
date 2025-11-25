@@ -5,3 +5,5 @@ Useful for isolating individual files for editing, &/ swapping files between cou
 Note, that this doesn't actually decompile or convert the various files inside the archive, instead it simply extracts the files themselves out/compiles files back into an archive.
 
 GT4 version was based on research done on the GT4 course archive structure by Nenkai.
+
+Last update updated the filenames of GT3 version, and a GT3 Beta course archive editor was added.
