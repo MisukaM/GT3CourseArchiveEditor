@@ -156,11 +156,11 @@ if __name__ == "__main__":
     file_count_in_dir = count_files_in_dir(current_dir)
 
     parser = argparse.ArgumentParser(description="GT3 Course Archive Unpacker/Rebuilder")
-    parser.add_argument("--build", metavar="FILE", help="Rebuild course archive")
-    parser.add_argument("--unpack", metavar="FILE", help="Unpacks course archive")
-    parser.add_argument("--buildall", action="store_true", help="Builds all course files in the directory")
-    parser.add_argument("--unpackall", action="store_true", help="Unpacks all course files in the directory")
-    parser.add_argument("--exit", action="store_true", help="Exits the program")
+    parser.add_argument("--build", "-b", metavar="FILE", help="Rebuild course archive")
+    parser.add_argument("--unpack", "-u", metavar="FILE", help="Unpacks course archive")
+    parser.add_argument("--buildall", "-ba", action="store_true", help="Builds all course files in the directory")
+    parser.add_argument("--unpackall", "-ua", action="store_true", help="Unpacks all course files in the directory")
+    parser.add_argument("--exit", "-e", action="store_true", help="Exits the program")
     args = parser.parse_args()
 
     if args.build:
