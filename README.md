@@ -6,6 +6,6 @@ Note, that this doesn't actually decompile or convert the various files inside t
 
 GT4 version was based on research done on the GT4 course archive structure by Nenkai.
 
-Last update updated the filenames of GT3 version, and a GT3 Beta course archive editor was added. Additionally, GT3 version now has "ua" and "ba" commands to unpack/repack all the files in the current directory.
+Last update updated the filenames of GT3 version, and a GT3 Beta course archive editor was added.
 
 Newest update modified the GT3 editor to use command line arguments.
